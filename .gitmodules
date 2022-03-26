@@ -1,0 +1,3 @@
+[submodule "csmoney-modules"]
+	path = csmoney-modules
+	url = https://github.com/TroExol/csmoney-modules.git
