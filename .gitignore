@@ -1,2 +1,5 @@
 node_modules
 .idea
+settings.txt
+dataSteam/details.txt
+dataSteam/allCookies.txt
