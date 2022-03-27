@@ -365,11 +365,13 @@ const pathSettings = './settings.txt';
         return;
     }
     
-    await balance.load();
-    await myInventory.load();
-    await purchases.load();
-    await itemStatus.load();
-    await transactions.load();
+    await Promise.all([
+        balance.load(),
+        myInventory.load(),
+        purchases.load(),
+        itemStatus.load(),
+        transactions.load(),
+    ]);
     
     checkForSell({});
     wsCheckForSell({});
