@@ -16,6 +16,7 @@ import {
     wsCheckForBuy,
     itemNames,
     reservedItems,
+    confirmOffersRecursively,
 } from './csmoney-modules/index.js';
 
 const pathSteamDetails = './dataSteam/details.txt';
@@ -232,6 +233,13 @@ const pathSettings = './settings.txt';
                 min: 1,
                 max: 4,
             },
+            {
+                type: (_, values) => values.changeSettings || isNew ? 'number' : null,
+                name: 'maxCountSameItems',
+                message: 'Введите максимальное количество одинаковых предметов в инвентаре:',
+                initial: 2,
+                min: 1,
+            },
         ];
         
         const {
@@ -267,6 +275,7 @@ const pathSettings = './settings.txt';
                 profitOverstock,
                 maxCountParallelsBuying,
                 maxCountParallelsSelling,
+                maxCountSameItems,
             } = await prompts(questionsAccount, {onCancel: onCancelPrompts});
             
             if (isNew || changeAccountSettings) {
@@ -291,6 +300,7 @@ const pathSettings = './settings.txt';
                     profitOverstock,
                     maxCountParallelsBuying,
                     maxCountParallelsSelling,
+                    maxCountSameItems,
                 };
                 changeProperties(settings);
             }
@@ -383,4 +393,5 @@ const pathSettings = './settings.txt';
     wsCheckForBuy({});
     checkForSell({});
     wsCheckForSell({});
+    confirmOffersRecursively();
 })();
