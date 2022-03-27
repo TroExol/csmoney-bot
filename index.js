@@ -12,6 +12,10 @@ import {
     transactions,
     checkForSell,
     wsCheckForSell,
+    checkForBuy,
+    wsCheckForBuy,
+    itemNames,
+    reservedItems,
 } from './csmoney-modules/index.js';
 
 const pathSteamDetails = './dataSteam/details.txt';
@@ -370,9 +374,13 @@ const pathSettings = './settings.txt';
         myInventory.load(),
         purchases.load(),
         itemStatus.load(),
+        itemNames.load(),
         transactions.load(),
     ]);
+    reservedItems.load();
     
+    checkForBuy({});
+    wsCheckForBuy({});
     checkForSell({});
     wsCheckForSell({});
 })();
