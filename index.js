@@ -24,6 +24,7 @@ const pathSteamAndCsMoneyCookies = './dataSteam/allCookies.txt';
 const pathSettings = './settings.txt';
 
 (async () => {
+    let isFirstStart = false;
     const onCancelPrompts = () => {
         console.log('Завершено пользователем');
         process.exit(0);
@@ -321,6 +322,7 @@ const pathSettings = './settings.txt';
         }, {onCancel: onCancelPrompts})).cryptoPass;
         
         if (!fs.existsSync(pathSteamDetails)) {
+            isFirstStart = true;
             if (!(await addSteamDetails())) {
                 return false;
             }
@@ -349,7 +351,7 @@ const pathSettings = './settings.txt';
                 if (!checkCookieCsMoney) {
                     console.log(`Получение куки аккаунтов`);
                     try {
-                        await getCookies.load();
+                        await getCookies.load(false);
                     } catch (error) {
                         console.log(chalk.red.underline(error));
                         return false;
@@ -360,7 +362,7 @@ const pathSettings = './settings.txt';
         } else {
             console.log(`Получение куки аккаунтов`);
             try {
-                await getCookies.load();
+                await getCookies.load(!isFirstStart);
             } catch (error) {
                 console.log(chalk.red.underline(error));
                 return false;
